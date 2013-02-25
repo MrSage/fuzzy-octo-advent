@@ -16,7 +16,7 @@ package client;
 		}
 		
 		@Override
-		public void init(GameContainer arg0, StateBasedGame arg1)
+		public void init(GameContainer gc, StateBasedGame sbg)
 				throws SlickException
 		{
 			// TODO Auto-generated method stub
@@ -24,7 +24,7 @@ package client;
 		}
 
 		@Override
-		public void render(GameContainer arg0, StateBasedGame arg1, Graphics arg2)
+		public void render(GameContainer gc, StateBasedGame sbg, Graphics g)
 				throws SlickException
 		{
 			// TODO Auto-generated method stub
@@ -32,7 +32,7 @@ package client;
 		}
 
 		@Override
-		public void update(GameContainer arg0, StateBasedGame arg1, int arg2)
+		public void update(GameContainer gc, StateBasedGame sbg, int delta)
 				throws SlickException
 		{
 			// TODO Auto-generated method stub
