@@ -28,7 +28,6 @@ public class Player {
 		this.setX(Game.WIDTH / 2 - hitbox.getWidth() / 2);
 		this.setY(Game.HEIGHT / 2 - hitbox.getHeight() / 2);
 
-		System.out.println(this.getX() + " " + this.getY());
 		playerdirection = new Vector2f(0, 1);
 	}
 
@@ -36,17 +35,18 @@ public class Player {
 	{
 		g.setColor(Color.white);
 
-		// g.draw(hitbox);
+		//g.draw(hitbox);
 		g.draw(newhitbox);
-		g.drawLine(hitbox.getCenterX(), hitbox.getCenterY(), Mouse.getX(),
-				Game.HEIGHT - Mouse.getY());
+		g.drawLine(hitbox.getCenterX(), hitbox.getCenterY(), playerdirection.x
+				+ hitbox.getCenterX(), playerdirection.y + hitbox.getCenterY());
 
 		g.drawLine(hitbox.getCenterX() + dx, hitbox.getCenterY(),
 				hitbox.getCenterX() + dx, hitbox.getCenterY() + dy);
 		g.drawLine(hitbox.getCenterX(), hitbox.getCenterY(),
 				hitbox.getCenterX() + dx, hitbox.getCenterY());
-		
-		g.drawString("" + dy, hitbox.getCenterX() + dx, hitbox.getCenterY() + dy / 2);
+
+		g.drawString("" + dy, hitbox.getCenterX() + dx, hitbox.getCenterY()
+				+ dy / 2);
 		g.drawString("" + dx, hitbox.getCenterX() + dx / 2, hitbox.getCenterY());
 
 		g.fillOval(Game.WIDTH / 2 - 2, Game.HEIGHT / 2 - 2, 4, 4);
@@ -55,8 +55,10 @@ public class Player {
 						+ hitbox.getCenterY() + ")", 25, 50);
 		g.drawString("Mouse coords: " + Mouse.getX() + ", "
 				+ (Game.HEIGHT - Mouse.getY()), 25, 35);
+
 		g.drawString("Player direction: " + playerdirection.x + " "
 				+ playerdirection.y, 25, 65);
+
 		g.drawString("Theta: " + theta + " " + theta * 180 / Math.PI, 25, 80);
 		g.drawString("Components: " + dy + "y " + dx + "x", 25, 95);
 	}
@@ -73,6 +75,7 @@ public class Player {
 
 		newhitbox = hitbox.transform(Transform.createRotateTransform(
 				(float) theta, hitbox.getCenterX(), hitbox.getCenterY()));
+
 		setDirections();
 
 		if (Keyboard.isKeyDown(Keyboard.KEY_RETURN))
@@ -123,19 +126,19 @@ public class Player {
 	private Vector2f calculateDirectionVector(Input input)
 	{
 		float mousex = input.getMouseX();
-		float mousey = Game.HEIGHT - input.getMouseY();
+		float mousey = input.getMouseY();
 
-		dx = mousex - (this.getX() + hitbox.getWidth() / 2);
-		dy = -1 * (mousey - (this.getY() + hitbox.getHeight() / 2));
+		dx = mousex - (hitbox.getCenterX());
+		dy = mousey - (hitbox.getCenterY());
 
-		return new Vector2f(dx, dy).normalise();
+		return new Vector2f(dx, dy);
 	}
 
 	private double convertTheta(Vector3f player, Vector3f horizon)
 	{
 		double angle = Vector3f.angle(player, horizon);
 
-		if(angle < 0)
+		if(player.y < 0)
 		{
 			angle = -angle;
 		}
