@@ -41,17 +41,17 @@ public class Projectile {
 
 	public void render(Graphics g)
 	{
-		g.setColor(new Color(1F, 1F, 1F, decaytime / 3000F));
+		//g.setColor(new Color(1F, 1F, 1F, decaytime / 3000F));
 		g.draw(hitbox);
 	}
 
 	public void update(Input input, int delta)
 	{
-		this.decaytime -= delta;
+		//this.decaytime -= delta;
 
 		if (decaytime <= 0)
 		{
-			this.destroy();
+			//this.destroy();
 		} else
 		{
 			move(direction.x * delta, direction.y * delta);
